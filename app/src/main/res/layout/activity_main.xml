@@ -23,8 +23,8 @@
             android:id="@+id/input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/aldrich"
             android:text="cos(50)"
             android:textColor="#FFFFFF"
@@ -38,15 +38,40 @@
             android:id="@+id/output"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="24dp"
             android:fontFamily="@font/segment7standard"
-            android:text="50"
+            android:text="1234567890"
             android:textColor="#FFFFFF"
-            android:textSize="80sp"
+            android:textSize="50sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/input" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:text="x10"
+            android:textColor="#FFF"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input" />
+
+        <TextView
+            android:id="@+id/tenToThePower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:fontFamily="@font/segment7standard"
+            android:text="-99"
+            android:textColor="#FFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input" />
 
     </android.support.constraint.ConstraintLayout>
@@ -105,7 +130,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="("
                 android:textSize="40sp" />
 
@@ -118,7 +143,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text=")"
                 android:textSize="40sp" />
         </TableRow>
@@ -139,7 +164,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="AC"
                 android:textSize="40sp" />
 
@@ -152,7 +177,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="&lt;-"
                 android:textSize="40sp" />
 
@@ -165,7 +190,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="^"
                 android:textSize="40sp" />
 
@@ -178,7 +203,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="÷"
                 android:textSize="40sp" />
         </TableRow>
@@ -199,7 +224,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="7"
                 android:textSize="40sp" />
 
@@ -212,7 +237,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="8"
                 android:textSize="40sp" />
 
@@ -225,7 +250,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="9"
                 android:textSize="40sp" />
 
@@ -238,7 +263,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="×"
                 android:textAllCaps="false"
                 android:textSize="40sp" />
@@ -260,7 +285,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="4"
                 android:textSize="40sp" />
 
@@ -273,7 +298,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="5"
                 android:textSize="40sp" />
 
@@ -286,7 +311,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="6"
                 android:textSize="40sp" />
 
@@ -299,7 +324,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="-"
                 android:textSize="40sp" />
 
@@ -321,7 +346,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="1"
                 android:textSize="40sp" />
 
@@ -334,7 +359,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="2"
                 android:textSize="40sp" />
 
@@ -347,7 +372,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="3"
                 android:textSize="40sp" />
 
@@ -360,7 +385,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="+"
                 android:textSize="40sp" />
         </TableRow>
@@ -381,7 +406,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="Ch"
                 android:textAllCaps="false"
                 android:textSize="40sp" />
@@ -395,7 +420,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="0"
                 android:textSize="40sp" />
 
@@ -408,7 +433,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="."
                 android:textSize="40sp" />
 
@@ -421,7 +446,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
-                android:background="#FFF"
+                android:background="@drawable/round_button"
                 android:text="="
                 android:textSize="40sp" />
         </TableRow>

@@ -3,10 +3,11 @@ package com.example.mycalculator;
 //import widgets
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     //OOP: Extends: Inherit all properties (functions, variables, ...) from "AppCompactActivity"
 
     //Init variables (widgets)
@@ -73,6 +74,48 @@ public class MainActivity extends AppCompatActivity {
         point = findViewById(R.id.point);
         equal = findViewById(R.id.equal);
 
+        open.setOnClickListener(addNumber);
+        close.setOnClickListener(addNumber);
+        exponential.setOnClickListener(addNumber);
+        divide.setOnClickListener(addNumber);
+        seven.setOnClickListener(addNumber);
+        eight.setOnClickListener(addNumber);
+        nine.setOnClickListener(addNumber);
+        multiply.setOnClickListener(addNumber);
+        four.setOnClickListener(addNumber);
+        five.setOnClickListener(addNumber);
+        six.setOnClickListener(addNumber);
+        minus.setOnClickListener(addNumber);
+        one.setOnClickListener(addNumber);
+        two.setOnClickListener(addNumber);
+        three.setOnClickListener(addNumber);
+        plus.setOnClickListener(addNumber);
+        zero.setOnClickListener(addNumber);
+        point.setOnClickListener(addNumber);
+
+        //cancel.setOnClickListener();
+        //backspace.setOnClickListener();
+        //changeColor.setOnClickListener();
+        //equal.setOnClickListener(addNumber);
+
 
     }
+
+
+    private View.OnClickListener addNumber = new View.OnClickListener(){
+        @Override
+        public void onClick(View v){
+            String text;
+            if(v==one){
+                text="1";
+            }else if(v==two){
+                text="2";
+            }else if(v==three){
+                text="3";
+            }else{
+                return;
+            }
+            input.setText(input.getText()+text);
+        }
+    };
 }
