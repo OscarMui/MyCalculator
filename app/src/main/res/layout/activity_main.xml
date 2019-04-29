@@ -61,7 +61,7 @@
             android:layout_marginEnd="24dp"
             android:text="x10"
             android:textColor="#FFF"
-            android:textSize="14sp"
+            android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input" />
 
@@ -74,7 +74,7 @@
             android:fontFamily="@font/segment7standard"
             android:text="-99"
             android:textColor="#FFF"
-            android:textSize="20sp"
+            android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/input" />
 
@@ -108,7 +108,7 @@
                 android:layout_weight="1"
                 android:background="#FFF"
                 android:text="^"
-                android:textSize="40sp"
+                android:textSize="40dp"
                 android:visibility="invisible" />
 
             <Button
@@ -122,7 +122,7 @@
                 android:layout_weight="1"
                 android:background="#FFF"
                 android:text="^"
-                android:textSize="40sp"
+                android:textSize="40dp"
                 android:visibility="invisible" />
 
             <Button
@@ -136,7 +136,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="("
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/close"
@@ -149,7 +149,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text=")"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
         </TableRow>
 
         <!--Row2: AC,<-,^,/-->
@@ -170,7 +170,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="AC"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/backspace"
@@ -183,7 +183,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="&lt;-"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/exponential"
@@ -196,7 +196,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="^"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/divide"
@@ -209,7 +209,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="÷"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
         </TableRow>
 
         <!--Row3: 7,8,9,*-->
@@ -230,7 +230,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="7"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/eight"
@@ -243,7 +243,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="8"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/nine"
@@ -256,7 +256,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="9"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/multiply"
@@ -270,7 +270,7 @@
                 android:background="@drawable/round_button"
                 android:text="×"
                 android:textAllCaps="false"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
         </TableRow>
 
         <!--Row4: 4,5,6,- -->
@@ -291,7 +291,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="4"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/five"
@@ -304,7 +304,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="5"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/six"
@@ -317,7 +317,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="6"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/minus"
@@ -330,7 +330,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="-"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
         </TableRow>
 
@@ -352,7 +352,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="1"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/two"
@@ -365,7 +365,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="2"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/three"
@@ -378,7 +378,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="3"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/plus"
@@ -391,7 +391,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="+"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
         </TableRow>
 
         <!--Row6: changeColor,0,.,=-->
@@ -413,7 +413,7 @@
                 android:background="@drawable/round_button"
                 android:text="Ch"
                 android:textAllCaps="false"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/zero"
@@ -426,7 +426,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="0"
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/point"
@@ -439,7 +439,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="."
-                android:textSize="40sp" />
+                android:textSize="40dp" />
 
             <Button
                 android:id="@+id/equal"
@@ -452,7 +452,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/round_button"
                 android:text="="
-                android:textSize="40sp" />
+                android:textSize="40dp" />
         </TableRow>
 
 
