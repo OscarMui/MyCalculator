@@ -6,38 +6,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 public class MainActivity extends AppCompatActivity{
     //OOP: Extends: Inherit all properties (functions, variables, ...) from "AppCompactActivity"
 
     //Init variables (widgets)
-    TextView input;
-    TextView output;
-    Button open;
-    Button close;
-    Button cancel;
-    Button backspace;
-    Button exponential;
-    Button divide;
-    Button seven;
-    Button eight;
-    Button nine;
-    Button multiply;
-    Button four;
-    Button five;
-    Button six;
-    Button minus;
-    Button one;
-    Button two;
-    Button three;
-    Button plus;
-    Button changeColor;
-    Button zero;
-    Button point;
-    Button equal;
-
-
-
+    TextView input,output;
+    Button open,close;
+    Button cancel,backspace,exponential,divide;
+    Button seven,eight,nine,multiply;
+    Button four,five,six,minus;
+    Button one,two,three,plus;
+    Button changeColor,zero,point,equal;
 
     @Override
     //Put code that you want to run before the screen launches here
@@ -48,6 +30,38 @@ public class MainActivity extends AppCompatActivity{
         //set layout for activity (from XML file)
         setContentView(R.layout.activity_main);
 
+        initWidgets();
+
+
+        cancel.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                input.setText("");
+            }
+        });
+        backspace.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                String text=input.getText().toString();
+                input.setText(text.substring(0,text.length()-1));
+            }
+        });
+        changeColor.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                //OOP: MainActivity.this: In this scope, 'this' refers to the action listener object itself,
+                //OOP: so MainActivity.this passes the activity, which is what we want
+                //What is toast? A small message which popped up at the bottom part of the screen
+                Toast.makeText(MainActivity.this,"Coming soon",Toast.LENGTH_SHORT).show();
+            }
+        });
+        equal.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Toast.makeText(MainActivity.this,"Coming soon",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    private void initWidgets(){
         //import widgets
         input = findViewById(R.id.input);
         output = findViewById(R.id.output);
@@ -74,6 +88,8 @@ public class MainActivity extends AppCompatActivity{
         point = findViewById(R.id.point);
         equal = findViewById(R.id.equal);
 
+        //onClickListener: To handle the 'click' event of the numbers
+        //Using a variable of type 'View.OnClickListener' to 'listen' for that click
         open.setOnClickListener(addNumber);
         close.setOnClickListener(addNumber);
         exponential.setOnClickListener(addNumber);
@@ -92,30 +108,55 @@ public class MainActivity extends AppCompatActivity{
         plus.setOnClickListener(addNumber);
         zero.setOnClickListener(addNumber);
         point.setOnClickListener(addNumber);
-
-        //cancel.setOnClickListener();
-        //backspace.setOnClickListener();
-        //changeColor.setOnClickListener();
-        //equal.setOnClickListener(addNumber);
-
-
     }
 
-
+    //Function triggered when certain buttons are clicked, as stated in initWidgets function
     private View.OnClickListener addNumber = new View.OnClickListener(){
         @Override
         public void onClick(View v){
-            String text;
-            if(v==one){
+            String text = "";
+            if(v==open){//open brackets
+                Toast.makeText(MainActivity.this,"Coming soon",Toast.LENGTH_SHORT).show();
+            }else if(v==close){//close brackets
+                Toast.makeText(MainActivity.this,"Coming soon",Toast.LENGTH_SHORT).show();
+            }else if(v==exponential){
+                text="^";
+            }else if(v==divide){
+                text="÷";
+            }else if(v==seven){
+                text="7";
+            }else if(v==eight){
+                text="8";
+            }else if(v==nine){
+                text="9";
+            }else if(v==multiply){
+                text="×";
+            }else if(v==four){
+                text="4";
+            }else if(v==five){
+                text="5";
+            }else if(v==six){
+                text="6";
+            }else if(v==minus){
+                text="-";
+            }else if(v==one){
                 text="1";
             }else if(v==two){
                 text="2";
             }else if(v==three){
                 text="3";
+            }else if(v==plus){
+                text="+";
+            }else if(v==zero){
+                text="0";
+            }else if(v==point){
+                text=".";
             }else{
                 return;
             }
             input.setText(input.getText()+text);
         }
     };
+
+
 }
