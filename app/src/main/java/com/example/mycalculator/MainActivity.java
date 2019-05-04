@@ -64,10 +64,7 @@ public class MainActivity extends AppCompatActivity{
                 double result=0;
                 try {
                     result=calculator.calculate(input.getText().toString());
-                }catch(ArithmeticException e){
-                    Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
-                    return;
-                }catch(IllegalArgumentException e){
+                }catch(Exception e){
                     Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                     return;
                 }

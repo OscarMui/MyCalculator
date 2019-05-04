@@ -3,6 +3,7 @@ package com.example.mycalculator;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -17,10 +18,13 @@ class Calculator {
     }
 
     double calculate(String expression)
-    throws ArithmeticException,IllegalArgumentException,NullPointerException{
+    throws ArithmeticException,IllegalArgumentException,NullPointerException, ArrayIndexOutOfBoundsException {
 
         operations = new ArrayList<operation>();
 
+        //Step 0:
+        if(expression.equals(""))
+            return 0;
         //Step 1: Check whether the number of brackets are balanced
 
         //Step 2: Separate the expression into the list
@@ -44,10 +48,36 @@ class Calculator {
         }
 
         //Step 3: Do 'IDMAS'
+        int finalValue;
+
         //searching for ^ (5)
+        finalValue = operations.size();
+        for(int i=0;i<finalValue;i++){
+            if(operations.get(i).getCommand()==5) {
+                power(i);
+                i--;
+                finalValue -= 2;
+                continue;
+            }
+        }
         //searching for /,* (4,3)
+        finalValue = operations.size();
+        for(int i=0;i<finalValue;i++){
+            if(operations.get(i).getCommand()==3) {
+                multiply(i);
+                i--;
+                finalValue -= 2;
+                continue;
+            }else if(operations.get(i).getCommand()==4){
+                divide(i);
+                i--;
+                finalValue -= 2;
+                continue;
+            }
+
+        }
         //searching for -,+ (2,1)
-        int finalValue = operations.size();
+        finalValue = operations.size();
         for(int i=0;i<finalValue;i++){
             if(operations.get(i).getCommand()==1) {
                 add(i);
@@ -79,15 +109,23 @@ class Calculator {
     void add(int pos){
         double result = 0.0;
         try {
+            //add the numbers
             result = operations.get(pos - 1).getValue()+operations.get(pos + 1).getValue();
         }catch(NullPointerException e){
+            //To make sure that the number is not null
             throw new NullPointerException("PROGRAM ERROR: Please report to developer, this should not appear... (NullPointerException)");
         }
         if (Double.isInfinite(result))
+            //To make sure that result is not "Infinity"
             throw new ArithmeticException("MATH ERROR: Out of range");
-        operations.set(pos-1,new operation(result));
-        operations.remove(pos);
-        operations.remove(pos);
+        try{
+            operations.set(pos-1,new operation(result));
+            operations.remove(pos);
+            operations.remove(pos);
+        }catch(ArrayIndexOutOfBoundsException e){
+            //To check whether the syntax are wrong
+            throw new ArrayIndexOutOfBoundsException("SYNTAX ERROR");
+        }
     }
     void subtract(int pos){
         double result = 0.0;
@@ -98,11 +136,67 @@ class Calculator {
         }
         if (Double.isInfinite(result))
             throw new ArithmeticException("MATH ERROR: Out of range");
-        operations.set(pos-1,new operation(result));
-        operations.remove(pos);
-        operations.remove(pos);
+        try{
+            operations.set(pos-1,new operation(result));
+            operations.remove(pos);
+            operations.remove(pos);
+        }catch(ArrayIndexOutOfBoundsException e){
+            throw new ArrayIndexOutOfBoundsException("SYNTAX ERROR");
+        }
     }
-
+    void multiply(int pos){
+        double result = 0.0;
+        try {
+            result = operations.get(pos - 1).getValue()*operations.get(pos + 1).getValue();
+        }catch(NullPointerException e){
+            throw new NullPointerException("PROGRAM ERROR: Please report to developer, this should not appear... (NullPointerException)");
+        }
+        if (Double.isInfinite(result))
+            throw new ArithmeticException("MATH ERROR: Out of range");
+        try{
+            operations.set(pos-1,new operation(result));
+            operations.remove(pos);
+            operations.remove(pos);
+        }catch(ArrayIndexOutOfBoundsException e){
+            throw new ArrayIndexOutOfBoundsException("SYNTAX ERROR");
+        }
+    }
+    void divide(int pos){
+        double result = 0.0;
+        if(operations.get(pos + 1).getValue()==0)
+            throw new ArithmeticException("MATH ERROR: Division by 0");
+        try {
+            result = operations.get(pos - 1).getValue()/operations.get(pos + 1).getValue();
+        }catch(NullPointerException e){
+            throw new NullPointerException("PROGRAM ERROR: Please report to developer, this should not appear... (NullPointerException)");
+        }
+        if (Double.isInfinite(result))
+            throw new ArithmeticException("MATH ERROR: Out of range");
+        try{
+            operations.set(pos-1,new operation(result));
+            operations.remove(pos);
+            operations.remove(pos);
+        }catch(ArrayIndexOutOfBoundsException e){
+            throw new ArrayIndexOutOfBoundsException("SYNTAX ERROR");
+        }
+    }
+    void power(int pos){
+        double result = 0.0;
+        try {
+            result = Math.pow(operations.get(pos - 1).getValue(),operations.get(pos + 1).getValue());
+        }catch(NullPointerException e){
+            throw new NullPointerException("PROGRAM ERROR: Please report to developer, this should not appear... (NullPointerException)");
+        }
+        if (Double.isInfinite(result))
+            throw new ArithmeticException("MATH ERROR: Out of range");
+        try{
+            operations.set(pos-1,new operation(result));
+            operations.remove(pos);
+            operations.remove(pos);
+        }catch(ArrayIndexOutOfBoundsException e){
+            throw new ArrayIndexOutOfBoundsException("SYNTAX ERROR");
+        }
+    }
 
 
 
