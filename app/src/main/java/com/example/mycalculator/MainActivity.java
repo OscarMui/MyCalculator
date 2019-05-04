@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,7 +19,8 @@ public class MainActivity extends AppCompatActivity{
 
 
     //Init variables (widgets)
-    TextView input,output,tenToThePower;
+    HorizontalScrollView inputScroll;
+    TextView input,output,timesTen, tenToThePower;
     Button open,close;
     Button cancel,backspace,exponential,divide;
     Button seven,eight,nine,multiply;
@@ -43,12 +45,16 @@ public class MainActivity extends AppCompatActivity{
         cancel.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 input.setText("");
+                output.setText("0");
+                tenToThePower.setVisibility(View.INVISIBLE);
+                timesTen.setVisibility(View.INVISIBLE);
             }
         });
         backspace.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String text=input.getText().toString();
-                input.setText(text.substring(0,text.length()-1));
+                if(text.length()!=0)
+                    input.setText(text.substring(0,text.length()-1));
             }
         });
         changeColor.setOnClickListener(new View.OnClickListener(){
@@ -65,19 +71,35 @@ public class MainActivity extends AppCompatActivity{
                 try {
                     result=calculator.calculate(input.getText().toString());
                 }catch(Exception e){
+                    //Use a toast to show the error msg stated b4
                     Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    output.setText("ERR");
+                    tenToThePower.setVisibility(View.INVISIBLE);
+                    timesTen.setVisibility(View.INVISIBLE);
                     return;
                 }
 
                 //check whether they are integer or double
-
                 if(Math.abs(result)<Math.pow(10,9) && //If larger than 10^9, we would represent our number in exponential form
                         Math.abs(result - Math.floor(result))<0.0000000001 && //Check whether it is an integer, with a little tolerance
                         !Double.isInfinite(result)){ //Check whether double stores "Infinity"
                     output.setText(Integer.toString((int) result));
                 }else{
                     Log.d(TAG,Double.toString(result));
-                    output.setText(Double.toString(result));
+                    String text = Double.toString(result);
+                    if(text.contains("E")){
+                        //Separate the output with the magnitude&sign and exponent using string methods
+                        int ePos = text.indexOf('E');
+                        output.setText(text.substring(0,Math.min(ePos,11))); //A substring of 'text' starting from 0 (INCLUSIVE) to e (EXCLUSIVE)/10
+                        tenToThePower.setText(text.substring(ePos+1)); //A substring of 'text' starting from the position of e+1 (INCLUSIVE)
+                        tenToThePower.setVisibility(View.VISIBLE);
+                        timesTen.setVisibility(View.VISIBLE);
+                    }else{
+                        output.setText(text.substring(0,Math.min(text.length(),11)));
+                        tenToThePower.setVisibility(View.INVISIBLE);
+                        timesTen.setVisibility(View.INVISIBLE);
+                    }
+
 
                 }
 
@@ -92,8 +114,12 @@ public class MainActivity extends AppCompatActivity{
 
     private void initWidgets(){
         //import widgets
+        inputScroll = findViewById(R.id.inputScroll);
+
         input = findViewById(R.id.input);
         output = findViewById(R.id.output);
+        timesTen = findViewById(R.id.timesTen);
+
         tenToThePower = findViewById(R.id.tenToThePower);
         open = findViewById(R.id.open);
         close = findViewById(R.id.close);
@@ -185,6 +211,13 @@ public class MainActivity extends AppCompatActivity{
                 return;
             }
             input.setText(input.getText()+text);
+            //Need time to update the text, so a thread (runnable) is created to handle this event
+            inputScroll.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    inputScroll.fullScroll(View.FOCUS_RIGHT);
+                }
+            },50);
         }
     };
 
