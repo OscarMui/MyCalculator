@@ -3,6 +3,7 @@ package com.example.mycalculator;
 //import widgets
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,14 +13,21 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity{
     //OOP: Extends: Inherit all properties (functions, variables, ...) from "AppCompactActivity"
 
+    //for logging
+    private static final String TAG = "TAG";
+
+
     //Init variables (widgets)
-    TextView input,output;
+    TextView input,output,tenToThePower;
     Button open,close;
     Button cancel,backspace,exponential,divide;
     Button seven,eight,nine,multiply;
     Button four,five,six,minus;
     Button one,two,three,plus;
     Button changeColor,zero,point,equal;
+
+    //add an object of Calculator
+    final Calculator calculator = new Calculator();
 
     @Override
     //Put code that you want to run before the screen launches here
@@ -31,7 +39,6 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         initWidgets();
-
 
         cancel.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -54,9 +61,34 @@ public class MainActivity extends AppCompatActivity{
         });
         equal.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Toast.makeText(MainActivity.this,"Coming soon",Toast.LENGTH_SHORT).show();
+                double result=0;
+                try {
+                    result=calculator.calculate(input.getText().toString());
+                }catch(ArithmeticException e){
+                    Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    return;
+                }catch(IllegalArgumentException e){
+                    Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                //check whether they are integer or double
+
+                if(Math.abs(result)<Math.pow(10,9) && //If larger than 10^9, we would represent our number in exponential form
+                        Math.abs(result - Math.floor(result))<0.0000000001 && //Check whether it is an integer, with a little tolerance
+                        !Double.isInfinite(result)){ //Check whether double stores "Infinity"
+                    output.setText(Integer.toString((int) result));
+                }else{
+                    Log.d(TAG,Double.toString(result));
+                    output.setText(Double.toString(result));
+
+                }
+
+
             }
+
         });
+
 
 
     }
@@ -65,6 +97,7 @@ public class MainActivity extends AppCompatActivity{
         //import widgets
         input = findViewById(R.id.input);
         output = findViewById(R.id.output);
+        tenToThePower = findViewById(R.id.tenToThePower);
         open = findViewById(R.id.open);
         close = findViewById(R.id.close);
         cancel = findViewById(R.id.cancel);
