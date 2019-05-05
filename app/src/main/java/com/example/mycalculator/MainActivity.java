@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity{
                         Math.abs(result - Math.floor(result))<0.0000000001 && //Check whether it is an integer, with a little tolerance
                         !Double.isInfinite(result)){ //Check whether double stores "Infinity"
                     output.setText(Integer.toString((int) result));
-                    tenToThePower.setVisibility(View.VISIBLE);
-                    timesTen.setVisibility(View.VISIBLE);
+                    tenToThePower.setVisibility(View.INVISIBLE);
+                    timesTen.setVisibility(View.INVISIBLE);
                 }else{
                     Log.d(TAG,Double.toString(result));
                     String text = Double.toString(result);
