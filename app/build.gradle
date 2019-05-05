@@ -6,8 +6,8 @@ android {
         applicationId "com.example.mycalculator"
         minSdkVersion 17
         targetSdkVersion 28
-        versionCode 3
-        versionName "0.1beta"
+        versionCode 4
+        versionName "0.2beta"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
