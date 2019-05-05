@@ -80,17 +80,21 @@ public class MainActivity extends AppCompatActivity{
                 }
 
                 //check whether they are integer or double
-                if(Math.abs(result)<Math.pow(10,9) && //If larger than 10^9, we would represent our number in exponential form
+                if(Math.abs(result)<Math.pow(10,6) && //If larger than 10^6, we would represent our number in exponential form
                         Math.abs(result - Math.floor(result))<0.0000000001 && //Check whether it is an integer, with a little tolerance
                         !Double.isInfinite(result)){ //Check whether double stores "Infinity"
                     output.setText(Integer.toString((int) result));
+                    tenToThePower.setVisibility(View.VISIBLE);
+                    timesTen.setVisibility(View.VISIBLE);
                 }else{
                     Log.d(TAG,Double.toString(result));
                     String text = Double.toString(result);
                     if(text.contains("E")){
                         //Separate the output with the magnitude&sign and exponent using string methods
                         int ePos = text.indexOf('E');
-                        output.setText(text.substring(0,Math.min(ePos,11))); //A substring of 'text' starting from 0 (INCLUSIVE) to e (EXCLUSIVE)/10
+
+                        output.setText(text.substring(0,Math.min(ePos,result<0 ? 11 : 10)));//A substring of 'text' starting from 0 (INCLUSIVE) to e (EXCLUSIVE)/10
+                        //same line if statement, condition ? valueIfTrue : valueIfFalse
                         tenToThePower.setText(text.substring(ePos+1)); //A substring of 'text' starting from the position of e+1 (INCLUSIVE)
                         tenToThePower.setVisibility(View.VISIBLE);
                         timesTen.setVisibility(View.VISIBLE);
