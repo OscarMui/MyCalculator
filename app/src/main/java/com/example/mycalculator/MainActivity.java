@@ -66,7 +66,12 @@ public class MainActivity extends AppCompatActivity{
             }
         });
         equal.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+            public void onClick(View v) {
+                if (input.getText().equals("")){
+                    output.setText("0");
+                    return;
+                }
+
                 double result=0;
                 try {
                     result=calculator.calculate(input.getText().toString());
@@ -78,7 +83,7 @@ public class MainActivity extends AppCompatActivity{
                     timesTen.setVisibility(View.INVISIBLE);
                     return;
                 }
-
+                Log.d(TAG,Double.toString(result - Math.floor(result)));
                 //check whether they are integer or double
                 if(Math.abs(result)<Math.pow(10,6) && //If larger than 10^6, we would represent our number in exponential form
                         Math.abs(result - Math.floor(result))<0.0000000001 && //Check whether it is an integer, with a little tolerance
@@ -87,7 +92,6 @@ public class MainActivity extends AppCompatActivity{
                     tenToThePower.setVisibility(View.INVISIBLE);
                     timesTen.setVisibility(View.INVISIBLE);
                 }else{
-                    Log.d(TAG,Double.toString(result));
                     String text = Double.toString(result);
                     if(text.contains("E")){
                         //Separate the output with the magnitude&sign and exponent using string methods
@@ -176,9 +180,9 @@ public class MainActivity extends AppCompatActivity{
         public void onClick(View v){
             String text = "";
             if(v==open){//open brackets
-                Toast.makeText(MainActivity.this,"Coming soon",Toast.LENGTH_SHORT).show();
+                text="(";
             }else if(v==close){//close brackets
-                Toast.makeText(MainActivity.this,"Coming soon",Toast.LENGTH_SHORT).show();
+                text=")";
             }else if(v==exponential){
                 text="^";
             }else if(v==divide){

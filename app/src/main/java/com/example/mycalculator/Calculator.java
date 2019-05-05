@@ -22,17 +22,36 @@ class Calculator {
 
         operations = new ArrayList<operation>();
 
-        //Step 0:
-        if(expression.equals(""))
-            return 0;
-        //Step 1: Check whether the number of brackets are balanced
-
+        //Step 1:
+        if (expression.equals("")){
+            throw new ArithmeticException("SYNTAX ERROR: No work to do within the bracket:)");
+        }
         //Step 2: Separate the expression into the list
         //If there is a bracket, immediate recursion
         StringBuffer accumulatedNumber= new StringBuffer("");
         for(int i=0;i<expression.length();i++){
             char character = expression.charAt(i);
-            if(character=='+'||character=='-'||character=='×'||character=='÷'||character=='^'){
+            if(character=='(') {
+                int j;
+                int numberOfInnerBrackets=0;
+                for(j=i+1;j<expression.length();j++){
+                    if(expression.charAt(j)=='(') {
+                        numberOfInnerBrackets++;
+                    }else if(expression.charAt(j)==')') {
+                        if (numberOfInnerBrackets>0)
+                            numberOfInnerBrackets--;
+                        else
+                            break;
+                    }
+                }
+                Calculator innerCalculator = new Calculator();
+                Log.d(TAG,expression.substring(i+1,Math.min(j,expression.length())));
+                operations.add(new operation(innerCalculator.calculate(expression.substring(i+1,Math.min(j,expression.length()))))); //exclusive j
+                i=j;
+
+            }else if(character==')'){
+                throw new IllegalArgumentException("SYNTAX ERROR: Imbalanced parentheses");
+            }else if(character=='+'||character=='-'||character=='×'||character=='÷'||character=='^'){
                 if(!accumulatedNumber.toString().equals("")) {
                     operations.add(new operation(false, accumulatedNumber.toString()));
                     accumulatedNumber = new StringBuffer("");
@@ -94,7 +113,9 @@ class Calculator {
         }
 
         if(operations.size()==1&&!operations.get(0).isOperator()){
+            Log.d(TAG,"SUCCESSFUL: " + operations.get(0).getValue());
             return operations.get(0).getValue();
+
         }else{
             for(int i=0;i<operations.size();i++){
                 Log.d(TAG,operations.get(i).toString());
