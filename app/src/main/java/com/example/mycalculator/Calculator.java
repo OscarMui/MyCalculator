@@ -26,13 +26,29 @@ class Calculator {
         if (expression.equals("")){
             throw new ArithmeticException("SYNTAX ERROR: No work to do within the bracket:)");
         }
+
         //Step 2: Separate the expression into the list
-        //If there is a bracket, immediate recursion
         StringBuffer accumulatedNumber= new StringBuffer("");
+        boolean accumulatedSign = false; //TRUE: Negative //FALSE: 0 or Positive
+
         for(int i=0;i<expression.length();i++){
             char character = expression.charAt(i);
             if(character=='(') {
+                //If there is a bracket, immediate recursion
                 int j;
+
+                //Add all existing numbers to the operations
+                if(!accumulatedNumber.toString().equals("")) {
+                    operations.add(new operation(false, accumulatedNumber.toString()));
+                    if(accumulatedSign){
+                        operation x = operations.get(operations.size()-1);
+                        x.setValue(-x.getValue());
+                    }
+                    accumulatedNumber = new StringBuffer("");
+                    accumulatedSign = false;
+                }
+
+                //Choose the appropriate close bracket
                 int numberOfInnerBrackets=0;
                 for(j=i+1;j<expression.length();j++){
                     if(expression.charAt(j)=='(') {
@@ -44,19 +60,55 @@ class Calculator {
                             break;
                     }
                 }
+
+                //If there are no signs b4 the brackets, add a multiplication command to it
+                if(operations.size()>0){
+                    Log.d(TAG, operations.get(operations.size()-1).toString());
+                    if(!operations.get(operations.size()-1).isOperator()){
+                        operations.add(new operation(true,"×"));
+                        Log.d(TAG,"x added in front");
+                    }
+                }
+
+                //Main operation in brackets
                 Calculator innerCalculator = new Calculator();
-                Log.d(TAG,expression.substring(i+1,Math.min(j,expression.length())));
+                //Do recursion here
+                //Add the result from the recursion
                 operations.add(new operation(innerCalculator.calculate(expression.substring(i+1,Math.min(j,expression.length()))))); //exclusive j
+
+                //Point the for loop index to after the bracket
                 i=j;
 
             }else if(character==')'){
                 throw new IllegalArgumentException("SYNTAX ERROR: Imbalanced parentheses");
             }else if(character=='+'||character=='-'||character=='×'||character=='÷'||character=='^'){
-                if(!accumulatedNumber.toString().equals("")) {
+                if(accumulatedNumber.toString().equals("")){
+                    if((operations.size()==0||operations.get(operations.size()-1).isOperator())){//If the previous operation is a sign
+                        //if it is +- then combine the sign into the next number else throw error
+                        if(character=='+'){
+                            //NTH
+                        }else if(character=='-'){
+                            accumulatedSign=!accumulatedSign;
+                        }else {
+                            throw new IllegalArgumentException("SYNTAX ERROR: improper signs placed together");
+                        }
+                    }else{
+                        throw new IllegalArgumentException("PROGRAM ERROR: Please report to developer (accumulated number.equals('')&&previous operation is not a sign");
+                    }
+                }else{//If accumulatedNumber contains number
+
                     operations.add(new operation(false, accumulatedNumber.toString()));
+                    if(accumulatedSign){
+                        operation x = operations.get(operations.size()-1);
+                        x.setValue(-x.getValue());
+                    }
+                    //reset these variables
                     accumulatedNumber = new StringBuffer("");
+                    accumulatedSign = false;
+
+                    operations.add(new operation(true,Character.toString(character)));
                 }
-                operations.add(new operation(true,Character.toString(character)));
+
             }else{
                 accumulatedNumber.append(character);
             }
@@ -64,6 +116,10 @@ class Calculator {
         //Add the last number
         if(!accumulatedNumber.toString().equals("")) {
             operations.add(new operation(false, accumulatedNumber.toString()));
+            if(accumulatedSign){
+                operation x = operations.get(operations.size()-1);
+                x.setValue(-x.getValue());
+            }
         }
 
         //Step 3: Do 'IDMAS'
@@ -120,7 +176,7 @@ class Calculator {
             for(int i=0;i<operations.size();i++){
                 Log.d(TAG,operations.get(i).toString());
             }
-            throw new IllegalArgumentException("PROGRAM ERROR: Please report to developer, this should not appear... (final length != 1)");
+            throw new IllegalArgumentException("SYNTAX ERROR: Failed to calculate final answer (final length != 1)");
         }
     }
 
@@ -128,78 +184,48 @@ class Calculator {
 
     //IDMAS
     void add(int pos){
-        double result = 0.0;
-        try {
-            //add the numbers
-            result = operations.get(pos - 1).getValue()+operations.get(pos + 1).getValue();
-        }catch(NullPointerException e){
-            //To make sure that the number is not null
-            throw new NullPointerException("PROGRAM ERROR: Please report to developer, this should not appear... (NullPointerException)");
-        }
+        //Can throw ArrayIndexOutOfBoundsException
+        double result = operations.get(pos - 1).getValue()+operations.get(pos + 1).getValue();
         if (Double.isInfinite(result))
             //To make sure that result is not "Infinity"
             throw new ArithmeticException("MATH ERROR: Out of range");
-        try{
-            operations.set(pos-1,new operation(result));
-            operations.remove(pos);
-            operations.remove(pos);
-        }catch(ArrayIndexOutOfBoundsException e){
-            //To check whether the syntax are wrong
-            throw new ArrayIndexOutOfBoundsException("SYNTAX ERROR");
-        }
+        //Can throw ArrayIndexOutOfBoundsException
+        operations.set(pos-1,new operation(result));
+        operations.remove(pos);
+        operations.remove(pos);
     }
     void subtract(int pos){
-        double result = 0.0;
-        try {
-            result = operations.get(pos - 1).getValue()-operations.get(pos + 1).getValue();
-        }catch(NullPointerException e){
-            throw new NullPointerException("PROGRAM ERROR: Please report to developer, this should not appear... (NullPointerException)");
-        }
+        //Can throw ArrayIndexOutOfBoundsException
+        double result = operations.get(pos - 1).getValue()-operations.get(pos + 1).getValue();
         if (Double.isInfinite(result))
             throw new ArithmeticException("MATH ERROR: Out of range");
-        try{
-            operations.set(pos-1,new operation(result));
-            operations.remove(pos);
-            operations.remove(pos);
-        }catch(ArrayIndexOutOfBoundsException e){
-            throw new ArrayIndexOutOfBoundsException("SYNTAX ERROR");
-        }
+        //Can throw ArrayIndexOutOfBoundsException
+        operations.set(pos-1,new operation(result));
+        operations.remove(pos);
+        operations.remove(pos);
     }
     void multiply(int pos){
-        double result = 0.0;
-        try {
-            result = operations.get(pos - 1).getValue()*operations.get(pos + 1).getValue();
-        }catch(NullPointerException e){
-            throw new NullPointerException("PROGRAM ERROR: Please report to developer, this should not appear... (NullPointerException)");
-        }
+        //Can throw ArrayIndexOutOfBoundsException
+        double result = operations.get(pos - 1).getValue()*operations.get(pos + 1).getValue();
         if (Double.isInfinite(result))
             throw new ArithmeticException("MATH ERROR: Out of range");
-        try{
-            operations.set(pos-1,new operation(result));
-            operations.remove(pos);
-            operations.remove(pos);
-        }catch(ArrayIndexOutOfBoundsException e){
-            throw new ArrayIndexOutOfBoundsException("SYNTAX ERROR");
-        }
+        //Can throw ArrayIndexOutOfBoundsException
+        operations.set(pos-1,new operation(result));
+        operations.remove(pos);
+        operations.remove(pos);
     }
     void divide(int pos){
-        double result = 0.0;
+
         if(operations.get(pos + 1).getValue()==0)
             throw new ArithmeticException("MATH ERROR: Division by 0");
-        try {
-            result = operations.get(pos - 1).getValue()/operations.get(pos + 1).getValue();
-        }catch(NullPointerException e){
-            throw new NullPointerException("PROGRAM ERROR: Please report to developer, this should not appear... (NullPointerException)");
-        }
+        //Can throw ArrayIndexOutOfBoundsException
+        double result = operations.get(pos - 1).getValue()/operations.get(pos + 1).getValue();
         if (Double.isInfinite(result))
             throw new ArithmeticException("MATH ERROR: Out of range");
-        try{
-            operations.set(pos-1,new operation(result));
-            operations.remove(pos);
-            operations.remove(pos);
-        }catch(ArrayIndexOutOfBoundsException e){
-            throw new ArrayIndexOutOfBoundsException("SYNTAX ERROR");
-        }
+        //Can throw ArrayIndexOutOfBoundsException
+        operations.set(pos-1,new operation(result));
+        operations.remove(pos);
+        operations.remove(pos);
     }
     void power(int pos){
         double result = 0.0;
@@ -211,6 +237,14 @@ class Calculator {
         if (Double.isInfinite(result))
             throw new ArithmeticException("MATH ERROR: Out of range");
         try{
+            //debug
+            Log.d(TAG,
+                    "EXPONENTIAL: \n"+
+                    "PARAM 1: " + operations.get(pos - 1).getValue() + "\n"+
+                    "PARAM 2: " + operations.get(pos + 1).getValue() + "\n" +
+                    "RESULT: " + result
+            );
+
             operations.set(pos-1,new operation(result));
             operations.remove(pos);
             operations.remove(pos);
@@ -241,7 +275,6 @@ class Calculator {
             }else{
                 try {
                     value = Double.parseDouble(expression);
-                    Log.d(TAG,Double.toString(value));
                 }catch(IllegalArgumentException e){
                     throw new IllegalArgumentException("SYNTAX ERROR: Invalid value");
                 }
@@ -279,6 +312,14 @@ class Calculator {
             return value;
         }
 
+        void setCommand(int command){
+            this.command = command;
+        }
+        void setValue(double value){
+            this.value = value;
+        }
+
+        //for logging
         public String toString(){
             return "isOperator: " + isOperator+
                     "\ngetCommand: " + command +

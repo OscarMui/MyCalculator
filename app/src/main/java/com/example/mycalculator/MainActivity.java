@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity{
                     timesTen.setVisibility(View.INVISIBLE);
                     return;
                 }
-                Log.d(TAG,Double.toString(result - Math.floor(result)));
+
                 //check whether they are integer or double
                 if(Math.abs(result)<Math.pow(10,9) && //If larger than 10^10, we would represent our number in exponential form
                         Math.abs(result - Math.floor(result))<0.0000000001 && //Check whether it is an integer, with a little tolerance
