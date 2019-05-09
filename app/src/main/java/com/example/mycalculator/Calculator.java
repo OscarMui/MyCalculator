@@ -93,7 +93,7 @@ class Calculator {
                             throw new IllegalArgumentException("SYNTAX ERROR: improper signs placed together");
                         }
                     }else{
-                        throw new IllegalArgumentException("PROGRAM ERROR: Please report to developer (accumulated number.equals('')&&previous operation is not a sign");
+                        operations.add(new operation(true,Character.toString(character)));
                     }
                 }else{//If accumulatedNumber contains number
 
