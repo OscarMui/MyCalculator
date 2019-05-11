@@ -1,12 +1,15 @@
 package com.example.mycalculator;
 
 //import widgets
+import android.graphics.Color;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +22,7 @@ public class MainActivity extends AppCompatActivity{
 
 
     //Init variables (widgets)
+    ConstraintLayout constraintLayout;
     HorizontalScrollView inputScroll;
     TextView input,output,timesTen, tenToThePower;
     Button open,close;
@@ -26,11 +30,15 @@ public class MainActivity extends AppCompatActivity{
     Button seven,eight,nine,multiply;
     Button four,five,six,minus;
     Button one,two,three,plus;
-    Button changeColor,zero,point,equal;
+    Button zero,point,equal;
+    ImageButton changeColor;
 
     //add an object of Calculator
     final Calculator calculator = new Calculator();
 
+    //see current color
+    boolean isBackgroundWhite = false;
+    
     @Override
     //Put code that you want to run before the screen launches here
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +70,7 @@ public class MainActivity extends AppCompatActivity{
                 //OOP: MainActivity.this: In this scope, 'this' refers to the action listener object itself,
                 //OOP: so MainActivity.this passes the activity, which is what we want
                 //What is toast? A small message which popped up at the bottom part of the screen
-                Toast.makeText(MainActivity.this,"Coming soon",Toast.LENGTH_SHORT).show();
+                changeActivityColor();
             }
         });
         equal.setOnClickListener(new View.OnClickListener(){
@@ -122,6 +130,8 @@ public class MainActivity extends AppCompatActivity{
 
     private void initWidgets(){
         //import widgets
+        constraintLayout = findViewById(R.id.constraintLayout);
+        
         inputScroll = findViewById(R.id.inputScroll);
 
         input = findViewById(R.id.input);
@@ -228,6 +238,184 @@ public class MainActivity extends AppCompatActivity{
             },50);
         }
     };
+    
+    private void changeActivityColor(){
+        if(isBackgroundWhite){
+            //change to background black
+
+            //ConstraintLayout constraintLayout;
+            //HorizontalScrollView inputScroll;
+            //TextView input,output,timesTen, tenToThePower;
+            constraintLayout.setBackgroundColor(Color.BLACK);
+            input.setTextColor(Color.WHITE);
+            output.setTextColor(Color.WHITE);
+            timesTen.setTextColor(Color.WHITE);
+            tenToThePower.setTextColor(Color.WHITE);
+
+            //Button open,close;
+            open.setBackgroundResource(R.drawable.round_button);
+            open.setTextColor(Color.BLACK);
+
+            close.setBackgroundResource(R.drawable.round_button);
+            close.setTextColor(Color.BLACK);
+
+            //Button cancel,backspace,exponential,divide;
+            cancel.setBackgroundResource(R.drawable.round_button);
+            cancel.setTextColor(Color.BLACK);
+
+            backspace.setBackgroundResource(R.drawable.round_button);
+            backspace.setTextColor(Color.BLACK);
+
+            exponential.setBackgroundResource(R.drawable.round_button);
+            exponential.setTextColor(Color.BLACK);
+
+            divide.setBackgroundResource(R.drawable.round_button);
+            divide.setTextColor(Color.BLACK);
+
+            //Button seven,eight,nine,multiply;
+            seven.setBackgroundResource(R.drawable.round_button);
+            seven.setTextColor(Color.BLACK);
+
+            eight.setBackgroundResource(R.drawable.round_button);
+            eight.setTextColor(Color.BLACK);
+
+            nine.setBackgroundResource(R.drawable.round_button);
+            nine.setTextColor(Color.BLACK);
+
+            multiply.setBackgroundResource(R.drawable.round_button);
+            multiply.setTextColor(Color.BLACK);
+
+            //Button four,five,six,minus;
+            four.setBackgroundResource(R.drawable.round_button);
+            four.setTextColor(Color.BLACK);
+
+            five.setBackgroundResource(R.drawable.round_button);
+            five.setTextColor(Color.BLACK);
+
+            six.setBackgroundResource(R.drawable.round_button);
+            six.setTextColor(Color.BLACK);
+
+            minus.setBackgroundResource(R.drawable.round_button);
+            minus.setTextColor(Color.BLACK);
+
+            //Button one,two,three,plus;
+            one.setBackgroundResource(R.drawable.round_button);
+            one.setTextColor(Color.BLACK);
+
+            two.setBackgroundResource(R.drawable.round_button);
+            two.setTextColor(Color.BLACK);
+
+            three.setBackgroundResource(R.drawable.round_button);
+            three.setTextColor(Color.BLACK);
+
+            plus.setBackgroundResource(R.drawable.round_button);
+            plus.setTextColor(Color.BLACK);
+
+            //Button zero,point,equal;
+            zero.setBackgroundResource(R.drawable.round_button);
+            zero.setTextColor(Color.BLACK);
+
+            point.setBackgroundResource(R.drawable.round_button);
+            point.setTextColor(Color.BLACK);
+
+            equal.setBackgroundResource(R.drawable.round_button);
+            equal.setTextColor(Color.BLACK);
+
+            //ImageButton changeColor;
+            changeColor.setBackgroundResource(R.drawable.round_button);
+            changeColor.setImageResource(R.drawable.palette_white);
+
+
+
+        }else{
+            //change to background white
+            //ConstraintLayout constraintLayout;
+            //HorizontalScrollView inputScroll;
+            //TextView input,output,timesTen, tenToThePower;
+            constraintLayout.setBackgroundColor(Color.WHITE);
+            input.setTextColor(Color.BLACK);
+            output.setTextColor(Color.BLACK);
+            timesTen.setTextColor(Color.BLACK);
+            tenToThePower.setTextColor(Color.BLACK);
+
+            //Button open,close;
+            open.setBackgroundResource(R.drawable.round_button_black);
+            open.setTextColor(Color.WHITE);
+
+            close.setBackgroundResource(R.drawable.round_button_black);
+            close.setTextColor(Color.WHITE);
+
+            //Button cancel,backspace,exponential,divide;
+            cancel.setBackgroundResource(R.drawable.round_button_black);
+            cancel.setTextColor(Color.WHITE);
+
+            backspace.setBackgroundResource(R.drawable.round_button_black);
+            backspace.setTextColor(Color.WHITE);
+
+            exponential.setBackgroundResource(R.drawable.round_button_black);
+            exponential.setTextColor(Color.WHITE);
+
+            divide.setBackgroundResource(R.drawable.round_button_black);
+            divide.setTextColor(Color.WHITE);
+
+            //Button seven,eight,nine,multiply;
+            seven.setBackgroundResource(R.drawable.round_button_black);
+            seven.setTextColor(Color.WHITE);
+
+            eight.setBackgroundResource(R.drawable.round_button_black);
+            eight.setTextColor(Color.WHITE);
+
+            nine.setBackgroundResource(R.drawable.round_button_black);
+            nine.setTextColor(Color.WHITE);
+
+            multiply.setBackgroundResource(R.drawable.round_button_black);
+            multiply.setTextColor(Color.WHITE);
+
+            //Button four,five,six,minus;
+            four.setBackgroundResource(R.drawable.round_button_black);
+            four.setTextColor(Color.WHITE);
+
+            five.setBackgroundResource(R.drawable.round_button_black);
+            five.setTextColor(Color.WHITE);
+
+            six.setBackgroundResource(R.drawable.round_button_black);
+            six.setTextColor(Color.WHITE);
+
+            minus.setBackgroundResource(R.drawable.round_button_black);
+            minus.setTextColor(Color.WHITE);
+
+            //Button one,two,three,plus;
+            one.setBackgroundResource(R.drawable.round_button_black);
+            one.setBackgroundResource(R.drawable.round_button_black);
+            one.setTextColor(Color.WHITE);
+
+            two.setBackgroundResource(R.drawable.round_button_black);
+            two.setTextColor(Color.WHITE);
+
+            three.setBackgroundResource(R.drawable.round_button_black);
+            three.setTextColor(Color.WHITE);
+
+            plus.setBackgroundResource(R.drawable.round_button_black);
+            plus.setTextColor(Color.WHITE);
+
+            //Button zero,point,equal;
+            zero.setBackgroundResource(R.drawable.round_button_black);
+            zero.setTextColor(Color.WHITE);
+
+            point.setBackgroundResource(R.drawable.round_button_black);
+            point.setTextColor(Color.WHITE);
+
+            equal.setBackgroundResource(R.drawable.round_button_black);
+            equal.setTextColor(Color.WHITE);
+
+            //ImageButton changeColor;
+            changeColor.setBackgroundResource(R.drawable.round_button_black);
+            changeColor.setImageResource(R.drawable.palette_black);
+
+
+        }
+        isBackgroundWhite = !isBackgroundWhite;
+    }
 
 
 }
