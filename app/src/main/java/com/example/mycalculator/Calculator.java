@@ -1,9 +1,6 @@
 package com.example.mycalculator;
 
-import android.support.annotation.Nullable;
 import android.util.Log;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
@@ -18,7 +15,7 @@ class Calculator {
     }
 
     double calculate(String expression)
-    throws ArithmeticException,IllegalArgumentException,NullPointerException, ArrayIndexOutOfBoundsException {
+    throws ArithmeticException,IllegalArgumentException,NullPointerException, IndexOutOfBoundsException {
 
         operations = new ArrayList<operation>();
 

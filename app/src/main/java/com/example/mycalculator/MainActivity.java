@@ -85,7 +85,12 @@ public class MainActivity extends AppCompatActivity{
                     //OOP: MainActivity.this: In this scope, 'this' refers to the action listener object itself,
                     //OOP: so MainActivity.this passes the activity, which is what we want
                     //What is toast? A small message which popped up at the bottom part of the screen
-                    Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    if(e.getClass().getSimpleName().equals("IndexOutOfBoundsException")){
+                        Toast.makeText(MainActivity.this,"SYNTAX ERROR (IndexOutOfBounds)",Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                    }
+
                     output.setText("ERR");
                     tenToThePower.setVisibility(View.INVISIBLE);
                     timesTen.setVisibility(View.INVISIBLE);
