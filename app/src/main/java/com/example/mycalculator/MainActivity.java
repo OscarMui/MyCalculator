@@ -35,9 +35,11 @@ public class MainActivity extends AppCompatActivity{
 
     //add an object of Calculator
     final Calculator calculator = new Calculator();
-
     //see current color
     boolean isBackgroundWhite = false;
+    //Toast variable
+    Toast toast;
+
     
     @Override
     //Put code that you want to run before the screen launches here
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
 
         initWidgets();
+        toast = new Toast(this);
 
         cancel.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
@@ -86,9 +89,11 @@ public class MainActivity extends AppCompatActivity{
                     //OOP: so MainActivity.this passes the activity, which is what we want
                     //What is toast? A small message which popped up at the bottom part of the screen
                     if(e.getClass().getSimpleName().equals("IndexOutOfBoundsException")){
-                        Toast.makeText(MainActivity.this,"SYNTAX ERROR (IndexOutOfBounds)",Toast.LENGTH_SHORT).show();
+                        createToast("SYNTAX ERROR (IndexOutOfBounds)");
+                        //Toast.makeText(MainActivity.this,"SYNTAX ERROR (IndexOutOfBounds)",Toast.LENGTH_SHORT).show();
                     }else{
-                        Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
+                        createToast(e.getMessage());
+                        //Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                     }
 
                     output.setText("ERR");
@@ -430,5 +435,7 @@ public class MainActivity extends AppCompatActivity{
         isBackgroundWhite = !isBackgroundWhite;
     }
 
-
+    private void createToast(String msg){
+        toast.makeText(this,msg,Toast.LENGTH_SHORT).show();
+    }
 }
