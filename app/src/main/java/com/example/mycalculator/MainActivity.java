@@ -67,12 +67,10 @@ public class MainActivity extends AppCompatActivity{
         });
         changeColor.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                //OOP: MainActivity.this: In this scope, 'this' refers to the action listener object itself,
-                //OOP: so MainActivity.this passes the activity, which is what we want
-                //What is toast? A small message which popped up at the bottom part of the screen
                 changeActivityColor();
             }
         });
+
         equal.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v) {
                 if (input.getText().equals("")){
@@ -84,7 +82,9 @@ public class MainActivity extends AppCompatActivity{
                 try {
                     result=calculator.calculate(input.getText().toString());
                 }catch(Exception e){
-                    //Use a toast to show the error msg stated b4
+                    //OOP: MainActivity.this: In this scope, 'this' refers to the action listener object itself,
+                    //OOP: so MainActivity.this passes the activity, which is what we want
+                    //What is toast? A small message which popped up at the bottom part of the screen
                     Toast.makeText(MainActivity.this,e.getMessage(),Toast.LENGTH_SHORT).show();
                     output.setText("ERR");
                     tenToThePower.setVisibility(View.INVISIBLE);
@@ -182,14 +182,22 @@ public class MainActivity extends AppCompatActivity{
         plus.setOnClickListener(addNumber);
         zero.setOnClickListener(addNumber);
         point.setOnClickListener(addNumber);
+
     }
 
     //Function triggered when certain buttons are clicked, as stated in initWidgets function
     private View.OnClickListener addNumber = new View.OnClickListener(){
         @Override
         public void onClick(View v){
+            Log.d(TAG,"onclick");
             String text = "";
-            if(v==open){//open brackets
+            try{
+                Button b = (Button) v;
+                text = b.getText().toString();
+            }catch(ClassCastException e){
+                return;
+            }
+            /*if(v==open){//open brackets
                 text="(";
             }else if(v==close){//close brackets
                 text=")";
@@ -227,7 +235,7 @@ public class MainActivity extends AppCompatActivity{
                 text=".";
             }else{
                 return;
-            }
+            }*/
             input.setText(input.getText()+text);
             //Need time to update the text, so a thread (runnable) is created to handle this event
             inputScroll.postDelayed(new Runnable() {
@@ -235,10 +243,10 @@ public class MainActivity extends AppCompatActivity{
                 public void run() {
                     inputScroll.fullScroll(View.FOCUS_RIGHT);
                 }
-            },50);
+            },10);
         }
     };
-    
+
     private void changeActivityColor(){
         if(isBackgroundWhite){
             //change to background black
